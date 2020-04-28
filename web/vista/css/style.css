@@ -1,0 +1,90 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+/*Estilos generales*/
+a{
+    text-decoration: none!important;
+}
+ul{
+    list-style:  none!important;
+}
+.w-g{
+    width: 10%;
+}
+/*Estilos iconos*/
+i{
+   
+   font-size: 2.2em!important;
+}
+/*Estilo de productos*/
+.titulo-productos{
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  font-size: 1.5em;
+}
+.textodescripcion-compra{
+    width: 45%!important;
+}
+.texto-descripcion{
+  padding-top: 1em;
+  font-size: 1em;
+}
+.remarcado-precio{
+  padding-top: 2.1em;
+  font-size: 1.4em;
+}
+.size-prod{
+    width: 35%;
+    height: 35%
+}
+.estilo-productos{
+  padding-right: 3%;
+  padding-left: 3%;
+  padding-bottom: 5%;
+  margin-right: 2%;
+  margin-left: 2%;
+  box-shadow: 5px 5px 5px rgba(63,94,251, 0.3);
+  border: 1px solid rgba(63,94,251, 0.2);
+  border-radius: 10px;
+}
+.btn-padd{
+    margin-bottom: 5%;
+}
+.width-descripcion{
+    width: 35%;
+}
+.width-producto-desc{
+    width: 70%!important;
+}
+.flex-0{
+    flex: 0 1 auto;
+}
+.flex-1{
+    flex: 1 1 auto;
+}
+.flex-2{
+    flex: 2 1 auto;
+}
+/*Estilo de las categorias*/
+
+.espacio-categoria{
+    text-align: center;
+    padding: 3%;
+}
+.anima-categoria{
+    transition: 0.2s;
+}
+.anima-categoria:hover{
+    border: 1px solid #1E90FF;
+    border-radius: 10px;
+}
+/*Estilo compra de producto*/
+.caja-separadora{
+    background-color: #dfe6e9;
+    border: 1px solid #dfe6e9;
+}
+.btn-personal{
+    color: white!important;
+}
+/*Footer*/
