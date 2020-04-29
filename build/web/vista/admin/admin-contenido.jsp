@@ -20,4 +20,8 @@
             <%@include file="../includes/admin/aside-menu-admin.jsp" %>
             <!--Nav bar-->
         </div>
+         
     <%@include file="../includes/admin/footer-admin.jsp" %><!--footer-->
+    <script src="../js/jquery.min.js"></script>
+    </body>
+</html>
