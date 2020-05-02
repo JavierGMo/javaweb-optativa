@@ -12,6 +12,12 @@ ul{
 .w-g{
     width: 10%;
 }
+.w-20{
+    width: 20%!important;
+}
+.w-80{
+    width: 80%!important;
+}
 /*Estilos iconos*/
 i{
    
@@ -88,3 +94,12 @@ i{
     color: white!important;
 }
 /*Footer*/
+
+
+
+/*Panel del usuario*/
+.perfil-imagen-panel{
+    width: 50%;
+    height: 50%;
+    
+}
