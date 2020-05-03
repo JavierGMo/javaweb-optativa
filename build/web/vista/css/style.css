@@ -18,6 +18,12 @@ ul{
 .w-80{
     width: 80%!important;
 }
+.mostrar{
+    display: block!important;
+}
+.ocultar{
+    display: none!important;
+}
 /*Estilos iconos*/
 i{
    

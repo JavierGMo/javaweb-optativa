@@ -27,5 +27,6 @@
     <%@include file="../includes/admin/footer-admin.jsp" %><!--footer-->
     <script src="../js/jquery.min.js"></script>
     <script src="../js/menu.js"></script>
+    <script src="../js/utilidadesdeusuario.js"></script>
     </body>
 </html>
