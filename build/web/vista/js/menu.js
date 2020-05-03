@@ -1,3 +1,13 @@
+function confirmar(){
+    console.log("Click");
+    console.log($("#despues-de-btn-eliminar"));
+            try{
+                $("#despues-de-btn-eliminar").removeClass("ocultar");
+                $("#despues-de-btn-eliminar").addClass("mostrar");
+            }catch(e){
+                console.log("Error type: " + e);
+            }
+}
 $(function(){
         
         //AJAX para porder obtener y mostrar un contenido al usuario al entrar a su pagina
@@ -86,29 +96,22 @@ $(function(){
 	});
 	//Pestaña para la opcion de eliminar cuenta
 	$("#opcion-eliminar-cuenta").click(function (event) {
-		event.preventDefault();
-			$.ajax({
-				url: "/HolaChido/vista/includes/admin/contenidomenu/eliminar-cuenta.html",
-				dataType: "html",
-				success: function (response) {
-					$("#contenedor-de-opciones").html(response);
-				},
-				error: function(e){
-					console.log("Error"+e);
-				}
-			});
-	});
-        /*$("#btn-eliminar-cuenta").click(function(event){
             event.preventDefault();
-            console.log("Click");
-            $("#despues-de-btn-eliminar").add(".mostrar");
-        });*/
+            $.ajax({
+                    url: "/HolaChido/vista/includes/admin/contenidomenu/eliminar-cuenta.html",
+                    dataType: "html",
+                    success: function (response) {
+                            $("#contenedor-de-opciones").html(response);
+                            document.getElementById("btn-eliminar-cuenta").onclick = function(){confirmar()};
+                    },
+                    error: function(e){
+                            console.log("Error"+e);
+                    }
+            });
+	});
+        
+        //Boton despues de querer eliminar la cuenta
+        console.log($("#btn-eliminar-cuenta"));
+        
+        
 });
-/*
-opcion-perfil" href="#">Pe
-" href="#">C
-" href="#">Ve
-" href
-
-" hr
-*/
