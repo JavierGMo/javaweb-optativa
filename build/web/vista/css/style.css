@@ -24,10 +24,14 @@ ul{
 .ocultar{
     display: none!important;
 }
+/*Estilos para icono de carrito*/
+.imagenes-carrito{
+    width: 10%!important;
+    height: 10%!important;
+}
 /*Estilos iconos*/
 i{
-   
-   font-size: 2.2em!important;
+   font-size: 1em!important;
 }
 /*Estilo de productos*/
 .titulo-productos{
