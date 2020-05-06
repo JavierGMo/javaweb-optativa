@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/HolaChido/index.jsp">
         <img src="/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-        Bootstrap
+        Car-Ito
     </a>
     <form class="form-inline">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -48,8 +48,8 @@
                   <i class="fa fa-user-circle text-light mr-1"></i>Sesion
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/HolaChido/vista/sesion/login.jsp">Iniciar sesion</a>
-                    <a class="dropdown-item" href="/HolaChido/vista/sesion/signup.jsp">Registro</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/login">Iniciar sesion</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/registro">Registro</a>
                   <a class="dropdown-item" href="#">Cerrar sesion</a>
                 </div>
             </div>

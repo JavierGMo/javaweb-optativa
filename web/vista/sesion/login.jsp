@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>{Nombre del producto}</title>
+        <title>${titulo}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="../css/style.css">
@@ -18,14 +18,14 @@
     <body>
         <%@include file="../includes/nav.jsp" %><!--Include del navbar-->
         <div class="d-flex justify-content-center m-5">
-            <form method="post" action="servletregistro" class="mb-5">
+            <form method="post" action="${pageContext.request.contextPath}/login" class="mb-5">
                 <div class="form-group mt-4 mb-4">
                   <label for="correo-login">Correo</label>
-                  <input type="email" class="form-control" id="correo-login" aria-describedby="emailHelp" placeholder="Correo">
+                  <input type="email" class="form-control" id="correo-login" name="correo-login" aria-describedby="emailHelp" placeholder="Correo">
                 </div>
                 <div class="form-group mt-4 mb-4">
                   <label for="password-login">Contraseña</label>
-                  <input type="password" class="form-control" id="password-login" placeholder="Contraseña">
+                  <input type="password" class="form-control" id="password-login" name="password-login" placeholder="Contraseña">
                 </div>
                 <button type="submit" class="btn btn-primary mt-3 mb-3 form-control">Iniciar sesion</button>
             </form>

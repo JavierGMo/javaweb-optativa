@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author m01
  */
-@WebServlet("/ControlLogin")
+@WebServlet("/login")
 
 public class ControlLogin extends HttpServlet{
     
@@ -33,6 +33,9 @@ public class ControlLogin extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res){
         
+        String correoLogin = req.getParameter("correo-login");
+        String passwordLogin = req.getParameter("password-login");
+        System.out.println(correoLogin+" : "+ passwordLogin);
     }
     
 }
