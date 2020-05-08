@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/HolaChido/index.jsp">
+    <a class="navbar-brand" href="${pageContext.request.contextPath}/">
         <img src="/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
         Car-Ito
     </a>

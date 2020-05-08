@@ -3,15 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/m01/Documents/NetBeansProjects/HolaChido/web/vista/css/style.css</file>
-            <file>file:/C:/Users/m01/Documents/NetBeansProjects/HolaChido/web/vista/includes/admin/contenidomenu/usuarios-administracion.html</file>
-            <file>file:/C:/Users/m01/Documents/NetBeansProjects/HolaChido/web/vista/sesion/login.jsp</file>
             <file>file:/C:/Users/m01/Documents/NetBeansProjects/HolaChido/src/java/conexion/Conexion.java</file>
-            <file>file:/C:/Users/m01/Documents/NetBeansProjects/HolaChido/src/java/modelo/Producto.java</file>
-            <file>file:/C:/Users/m01/Documents/NetBeansProjects/HolaChido/web/vista/includes/admin/aside-menu-admin.jsp</file>
-            <file>file:/C:/Users/m01/Documents/NetBeansProjects/HolaChido/web/vista/includes/admin/nav-admin.jsp</file>
             <file>file:/C:/Users/m01/Documents/NetBeansProjects/HolaChido/src/java/modelo/Usuario.java</file>
-            <file>file:/C:/Users/m01/Documents/NetBeansProjects/HolaChido/src/java/modelo/Proveedor.java</file>
+            <file>file:/C:/Users/m01/Documents/NetBeansProjects/HolaChido/src/java/controlador/index.java</file>
+            <file>file:/C:/Users/m01/Documents/NetBeansProjects/HolaChido/src/java/controlador/ControlRegistroUsuario.java</file>
             <file>file:/C:/Users/m01/Documents/NetBeansProjects/HolaChido/web/index.jsp</file>
             <file>file:/C:/Users/m01/Documents/NetBeansProjects/HolaChido/web/vista/sesion/signup.jsp</file>
             <file>file:/C:/Users/m01/Documents/NetBeansProjects/HolaChido/src/java/controlador/ControlLogin.java</file>

@@ -10,7 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 /*
             nombre
@@ -153,20 +155,21 @@ public class Usuario {
         this.productosComprados = productosComprados;
     }
     public void leerUsuarios(){
-        LinkedList<Usuario> listaUsuarios=new LinkedList<Usuario>();
+        LinkedList<String[]> listaUsuarios=new LinkedList<String[]>();
         try
         {
               Conexion conexion = new Conexion();
               Statement st = conexion.conectar().createStatement();
-              ResultSet rs = st.executeQuery("select * from Usuario" );
+              ResultSet rs = st.executeQuery("select NOMBRE, APELLIDO, NOMBREUSUARIO, CORREO, REFIMAGENPERFIL, TIPO from usuario" );
               while (rs.next())
               {
-                 Usuario usuario = new Usuario();
+                 
                  /*Usuario.setId(rs.getInt("id"));
                  Usuario.setNombre(rs.getString("nombre"));
                  Usuario.setApellido(rs.getString("apellidos"));
                  Usuario.setTelefono(rs.getString("telefono"));*/
-                 listaUsuarios.add(usuario);
+                 listaUsuarios.add(new String[]{
+                 });
               }
               rs.close();
               st.close();
@@ -178,21 +181,37 @@ public class Usuario {
            }
            //return listaContactos;   
     }
-    public LinkedList<String> traerUsuario(String correo, String password){
-        LinkedList<String> usuario = new LinkedList<>();
+    public Map<String, String> traerUsuario(String correo, String password){
+        LinkedList<String[]> usuario = new LinkedList<>();
+        Map<String, String> dataUsuario = null;
         int i = 0;
         try
         {
             Conexion conexion = new Conexion();
-            PreparedStatement preparedStatement = conexion.conectar().prepareStatement("SELECT * FROM usuario WHERE CORREO=? AND CONTRASENIA = ?");
+            PreparedStatement preparedStatement = conexion.conectar().prepareStatement("SELECT NOMBRE, APELLIDO, NOMBREUSUARIO, CORREO, REFIMAGENPERFIL, TIPO, CONTRASENIA FROM usuario WHERE CORREO=? AND CONTRASENIA = ?");
             preparedStatement.setString(1, correo);
             preparedStatement.setString(2, password);
             ResultSet resultado = preparedStatement.executeQuery();
-              
-            while (resultado.next()){
-                usuario.add(resultado.getString(i));
-                ++i;
-              }
+            if(resultado != null && resultado.first()){
+                dataUsuario = new HashMap<String, String>();
+                System.out.println("NO esta vacio de modelo");
+
+                dataUsuario.put("nombre", resultado.getString("NOMBRE"));
+                dataUsuario.put("apellido", resultado.getString("APELLIDO"));
+                dataUsuario.put("nombreusuario", resultado.getString("NOMBREUSUARIO"));
+                dataUsuario.put("correo", resultado.getString("CORREO"));
+                dataUsuario.put("refimagenperfil", resultado.getString("REFIMAGENPERFIL"));
+                dataUsuario.put("tipo", resultado.getString("TIPO"));
+                dataUsuario.put("password", resultado.getString("CONTRASENIA"));
+                
+                /*
+                while (resultado.next()){
+                    System.out.println(resultado.getString(i));
+                    usuario.add(resultado.getString(i));
+                    ++i;
+                }*/
+            }
+            
               
               resultado.close();
               preparedStatement.close();
@@ -202,9 +221,28 @@ public class Usuario {
            {
               e.printStackTrace();
            }
-           return usuario;
+           return dataUsuario;
     }
-    public void crearUsuarios(){
+    public boolean crearUsuarios() throws SQLException{
+        boolean consultaCreada = false;
+        Conexion conexion = new Conexion();
+        PreparedStatement preparedStatement = conexion.conectar().prepareStatement("INSERT INTO `usuario`(`ID`, `NOMBRE`, `APELLIDO`, `NOMBREUSUARIO`, `CORREO`, `REFIMAGENPERFIL`, `TIPO`, `CONTRASENIA`, `TOTALPRODUCTOSVENDIDOS`, `CALLE_IDCALLE`, `MUNICIPIO_IDMUNICIPIO`, `ESTADO_IDESTADO`) VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        preparedStatement.setString(1, this.nombre);
+        preparedStatement.setString(2, this.apellidos);
+        preparedStatement.setString(3, this.nombreUsuario);
+        preparedStatement.setString(4, this.correo);
+        preparedStatement.setString(5, "ref/");
+        preparedStatement.setString(6, this.tipo);
+        preparedStatement.setString(7, this.contrasenia);
+        preparedStatement.setInt(8, 0);
+        preparedStatement.setInt(9, 1);
+        preparedStatement.setInt(10, 1);
+        preparedStatement.setInt(11, 3);
+        if(preparedStatement.executeUpdate() == 1){
+            consultaCreada = true; 
+        }
+        conexion.conectar().close();
+        return consultaCreada;
         
     }
     public void actualizarUsuario(){
