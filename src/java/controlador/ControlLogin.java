@@ -27,41 +27,36 @@ public class ControlLogin extends HttpServlet{
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        //if(req.getSession().getAttribute("sesioniniciada") != null && req.getSession().getAttribute("usuario") != null) res.sendRedirect(req.getContextPath()+ "/");
         req.setAttribute("titulo", "Iniciar sesion");
         
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("vista/sesion/login.jsp");
         requestDispatcher.forward(req, res);
-        
     }
     
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException{
-        
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        //Me hace falta el ajax con jsp
         String correoLogin = req.getParameter("correo-login");
         String passwordLogin = req.getParameter("password-login");
-        HttpSession inicioSesion = req.getSession();
         Usuario usuario = new Usuario();
+        boolean sesionIniciada = false;
+        String paginaRedireccion = "/login";
+        HttpSession sesion = req.getSession();
         Map<String, String> resultadoUsuario = usuario.traerUsuario(correoLogin, passwordLogin);
         if(resultadoUsuario != null){
-            System.out.println("NO esta vacio");
             if(!resultadoUsuario.isEmpty()){
-                
-                System.out.println("Es distinto de cero");
-                System.out.println(resultadoUsuario.get("nombre"));
-                HttpSession sesion = req.getSession();
+                //Con esta variable verifico si el usuario existe y puede iniciar sesion. Por defecto esta en false
+                sesionIniciada = true;
+                //Con esta variable si el usuario existe lo redirecciono al index sino se queda en el login
+                paginaRedireccion = "/";
+                sesion.setMaxInactiveInterval(60*10);
                 sesion.setAttribute("usuario", resultadoUsuario);
-                req.login(resultadoUsuario.get("correo"), resultadoUsuario.get("password"));
-            }else{
-                System.out.println("No hay usuarios");
             }
-        }else{
-            System.out.println("No hay usuarios");
         }
-        //LinkedList<String> resultadoUsuario = usuario.traerUsuario(correoLogin, passwordLogin);
+        sesion.setAttribute("sesioniniciada", sesionIniciada);
+        res.sendRedirect(req.getContextPath()+ paginaRedireccion);
         
-        //System.out.println( inicioSesion.isNew());
-        //req.login(correoLogin, correoLogin);
-        //System.out.println(correoLogin+" : "+ passwordLogin);
     }
     
 }

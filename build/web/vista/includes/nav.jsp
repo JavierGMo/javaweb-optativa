@@ -48,9 +48,19 @@
                   <i class="fa fa-user-circle text-light mr-1"></i>Sesion
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath}/login">Iniciar sesion</a>
-                    <a class="dropdown-item" href="${pageContext.request.contextPath}/registro">Registro</a>
-                  <a class="dropdown-item" href="#">Cerrar sesion</a>
+                    <%
+                        //java.util.Map<String, String> usuario = session.getAttribute("usuario");
+                        //out.print(session);
+                        //out.print(session.getAttribute("usuario"));
+                        if(session.getAttribute("usuario") == null){
+                    %>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/login">Iniciar sesion</a>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/registro">Registro</a>
+                     <% }else{%>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Cerrar sesion</a>
+                    <%
+                        }
+                    %>
                 </div>
             </div>
           </li>

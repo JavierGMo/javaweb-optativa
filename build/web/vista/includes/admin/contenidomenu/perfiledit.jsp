@@ -2,8 +2,7 @@
     <div class="text-center mt-3 mb-4">
         <img src="/HolaChido/vista/images/users/notuser.png" alt="imagen user" class="perfil-imagen-panel rounded-circle"/>
         <div class="mt-5">
-            
-            <p><span id="nombre-usuario"><% out.print(Nombre usuario); %></span></p>
+            <p><span id="nombre-usuario"><% out.print("Hola"); %></span></p>
             <p><span id="apellidos-usuario">Apellido usuario</span></p>
             <p><span id="calle-usuario">Calle del usuario usuario</span></p>
         </div><!--Descripcion del usuario-->

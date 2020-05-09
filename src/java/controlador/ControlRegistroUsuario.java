@@ -7,6 +7,7 @@ package controlador;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -26,10 +27,20 @@ public class ControlRegistroUsuario extends HttpServlet{
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        /*if(req.getSession().getAttribute("usuario") != null ){
+            Map<String, String> usuarioAdmin =  (Map<String, String>) req.getSession().getAttribute("usuario");
+            if(!usuarioAdmin.get("tipo").equals("admin")){
+                res.sendRedirect(req.getContextPath()+ "/");
+            }
+        if(req.getSession().getAttribute("sesioniniciada") != null && req.getSession().getAttribute("usuario") != null) res.sendRedirect(req.getContextPath()+ "/");
+        }*/
+        //Direccion default
+        
         req.setAttribute("titulo", "Registro");
         
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("vista/sesion/signup.jsp");
         requestDispatcher.forward(req, res);
+        if(req.getSession().getAttribute("sesioniniciada") != null && req.getSession().getAttribute("usuario") != null) res.sendRedirect(req.getContextPath()+ "/");
         
     }
     
