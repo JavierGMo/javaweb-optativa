@@ -9,29 +9,28 @@ function confirmar(){
             }
 }
 $(function(){
-        
         //AJAX para porder obtener y mostrar un contenido al usuario al entrar a su pagina
         $.ajax({
-            url: "/HolaChido/vista/includes/admin/contenidomenu/perfil-edit.html",
-            dataType: "html",
-            success: function (response) {
-                    $("#contenedor-de-opciones").html(response);
-            },
-            error: function(e){
-                console.log(typeof e);
-                $("#contenedor-de-opciones").html('<p class="error-pagina">Algo salio mal (Emoji)</p>');
-            }
-        });
+                url: "vista/includes/admin/contenidomenu/perfiledit.jsp",
+                success: function (response) {
+                        $("#contenedor-de-opciones").html(response);
+
+                },
+                error: function(e){
+                        console.log("Error"+e);
+                }
+            });
         
 	//id del contenedor: contenedor-de-opciones
 	//Pestaña para perfil
 	$("#opcion-perfil").click(function (event) {
 		event.preventDefault();
+                console.log("Hola, has hecho click");
 		$.ajax({
-			url: "/HolaChido/vista/includes/admin/contenidomenu/perfil-edit.html",
-			dataType: "html",
+			url: "vista/includes/admin/contenidomenu/perfiledit.jsp",
 			success: function (response) {
 				$("#contenedor-de-opciones").html(response);
+                                
 			},
 			error: function(e){
 				console.log("Error"+e);
@@ -41,65 +40,61 @@ $(function(){
 	//Pestaña para opcion de las compras
 	$("#opcion-compras").click(function (event) {
 		event.preventDefault();
-			$.ajax({
-				url: "/HolaChido/vista/includes/admin/contenidomenu/compra-admin.html",
-				dataType: "html",
-				success: function (response) {
-					$("#contenedor-de-opciones").html(response);
-				},
-				error: function(e){
-					console.log("Error"+e);
-				}
-			});
+                $.ajax({
+                        url: "vista/includes/admin/contenidomenu/compraadmin.jsp",
+                        success: function (response) {
+                                $("#contenedor-de-opciones").html(response);
+                        },
+                        error: function(e){
+                                console.log("Error"+e);
+                        }
+                });
 	});
 	//Pestaña para la opcion de ventas
 	$("#opcion-ventas").click(function (event) {
 		event.preventDefault();
-			$.ajax({
-				url: "/HolaChido/vista/includes/admin/contenidomenu/venta-admin.html",
-				dataType: "html",
-				success: function (response) {
-					$("#contenedor-de-opciones").html(response);
-				},
-				error: function(e){
-					console.log("Error"+e);
-				}
-			});
+                $.ajax({
+                        url: "vista/includes/admin/contenidomenu/ventaadmin.jsp",
+                        success: function (response) {
+                                $("#contenedor-de-opciones").html(response);
+                        },
+                        error: function(e){
+                                console.log("Error"+e);
+                        }
+                });
 	});
 	//Pestaña para la opcion de administracion de cuentas
 	$("#opcion-admin-cuentas").click(function (event) {
 		event.preventDefault();
-			$.ajax({
-				url: "/HolaChido/vista/includes/admin/contenidomenu/usuarios-administracion.html",
-				dataType: "html",
-				success: function (response) {
-					$("#contenedor-de-opciones").html(response);
-				},
-				error: function(e){
-					console.log("Error"+e);
-				}
-			});
+                $.ajax({
+                        url: "vista/includes/admin/contenidomenu/usuarioadministracion.jsp",
+                        success: function (response) {
+                                $("#contenedor-de-opciones").html(response);
+                        },
+                        error: function(e){
+                                console.log("Error"+e);
+                        }
+                });
 	});
 	//Pestaña para la opcion de cambiar contraseña
 	$("#opcion-cambiar-contrasenia").click(function (event) {
 		event.preventDefault();
-			$.ajax({
-				url: "/HolaChido/vista/includes/admin/contenidomenu/cambio-contrasenia.html",
-				dataType: "html",
-				success: function (response) {
-					$("#contenedor-de-opciones").html(response);
-				},
-				error: function(e){
-					console.log("Error"+e);
-				}
-			});
+                $.ajax({
+                        url: "vista/includes/admin/contenidomenu/cambiocontrasenia.jsp",
+                        dataType: "html",
+                        success: function (response) {
+                                $("#contenedor-de-opciones").html(response);
+                        },
+                        error: function(e){
+                                console.log("Error"+e);
+                        }
+                });
 	});
 	//Pestaña para la opcion de eliminar cuenta
 	$("#opcion-eliminar-cuenta").click(function (event) {
             event.preventDefault();
             $.ajax({
-                    url: "/HolaChido/vista/includes/admin/contenidomenu/eliminar-cuenta.html",
-                    dataType: "html",
+                    url: "vista/includes/admin/contenidomenu/eliminarcuenta.jsp",
                     success: function (response) {
                             $("#contenedor-de-opciones").html(response);
                             document.getElementById("btn-eliminar-cuenta").onclick = function(){confirmar()};

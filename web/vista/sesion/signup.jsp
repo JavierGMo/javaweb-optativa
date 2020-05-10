@@ -1,10 +1,10 @@
 <%-- 
     Document   : login
     Created on : 17/04/2020, 02:09:41 PM
-    Author     : m01
+    Author     : Javier GMO
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!--
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,7 +15,7 @@
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="../css/style.css">
     </head>
-    <body>
+    <body>-->
         <%@include file="../includes/nav.jsp" %><!--Include del navbar-->
         <div class="d-flex justify-content-center m-5">
             <!--
@@ -32,7 +32,11 @@
             municipio
             estado
             -->
-            <form method="post" action="${pageContext.request.contextPath}/registro" class="mb-5">
+            <form method="post" action="${pageContext.request.contextPath}/registro" class="mb-5" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="imagenperfil-registro">Imagen de perfil</label>
+                    <input type="file" class="form-control-file" id="imagenperfil-registro" name="imagenperfil-registro">
+                </div>
                 <div class="form-group">
                   <label for="nombre-registro">Nombre completo</label>
                   <input type="text" class="form-control" id="nombre-registro" name="nombre-registro" placeholder="Nombre completo">
@@ -42,7 +46,7 @@
                   <input type="text" class="form-control" id="apellido-registro" name="apellido-registro" placeholder="Apellido(s)">
                 </div><!--apellido-->
                 <div class="form-group">
-                  <label for="nombreusuario-registro">Nomnbre de usuario</label>
+                  <label for="nombreusuario-registro">Nombre de usuario</label>
                   <input type="text" class="form-control" id="nombreusuario-registro" name="nombreusuario-registro" placeholder="Nombre de usuario">
                 </div><!--nombre de usuario-->
                 <div class="form-group">
@@ -50,7 +54,7 @@
                   <input type="email" class="form-control" id="correo-registronuevo" name="correo-registronuevo" aria-describedby="emailHelp" placeholder="Correo">
                 </div><!--correo-->
                 <div class="form-group">
-                    <p><span>Â¿Que es?</span></p>
+                    <p><span>¿Que es?</span></p>
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="tipousuario-registro" id="compradorradio" value="c">
                       <label class="form-check-label" for="inlineRadio1">Comprador</label>
@@ -73,13 +77,13 @@
                   <input type="text" class="form-control" id="municipio-registro" name="municipio-registro" placeholder="Municipio">
                 </div><!--municipio-->
                 <div class="form-group">
-                  <label for="password-registronuevo">ContraseÃ±a</label>
-                  <input type="password" class="form-control" id="password-registronuevo" name="password-registronuevo" placeholder="ContraseÃ±a">
-                </div><!--contraseÃ±a-->
+                  <label for="password-registronuevo">Contraseña</label>
+                  <input type="password" class="form-control" id="password-registronuevo" name="password-registronuevo" placeholder="Contraseña">
+                </div><!--contraseña-->
                 <div class="form-group">
-                  <label for="passwordconfirmar-registronuevo">ContraseÃ±a</label>
-                  <input type="password" class="form-control" id="passwordconfirmar-registronuevo" name="passwordconfirmar-registronuevo" placeholder="ContraseÃ±a">
-                </div><!--confirmar contraseÃ±a contraseÃ±a-->
+                  <label for="passwordconfirmar-registronuevo">Contraseña</label>
+                  <input type="password" class="form-control" id="passwordconfirmar-registronuevo" name="passwordconfirmar-registronuevo" placeholder="Contraseña">
+                </div><!--confirmar contraseña contraseña-->
                 <button type="submit" class="btn btn-primary form-control">Crear cuenta</button>
             </form>
         </div>

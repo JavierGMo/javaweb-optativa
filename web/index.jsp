@@ -1,10 +1,10 @@
 <%-- 
     Document   : index
     Created on : 15/04/2020, 08:24:35 PM
-    Author     : m01
+    Author     : Javier GMO
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!--
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,7 +14,7 @@
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="vista/css/style.css">
     </head>
-    <body>
+    <body>-->
         <%@include file="vista/includes/nav.jsp" %><!--Include del navbar-->
         <div class="d-flex flex-column">
             <div class="text-center mt-3">
@@ -77,7 +77,6 @@
                 </div>
             </div>
         </div><!--Todas las categorias-->
-        <a href="${pageContext.request.contextPath}/controlusuario">Contenido del admin</a>
         <%@include file="vista/includes/footer.jsp" %><!--Include del footer-->
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

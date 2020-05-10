@@ -1,3 +1,14 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>${titulo}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/vista/css/style.css">
+</head>
+<body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="${pageContext.request.contextPath}/">
         <img src="/docs/4.4/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
@@ -57,6 +68,7 @@
                         <a class="dropdown-item" href="${pageContext.request.contextPath}/login">Iniciar sesion</a>
                         <a class="dropdown-item" href="${pageContext.request.contextPath}/registro">Registro</a>
                      <% }else{%>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/controlusuario">Perfil</a>
                         <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Cerrar sesion</a>
                     <%
                         }

@@ -5,24 +5,32 @@
  */
 package controlador;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import modelo.Usuario;
 
 /**
  *
  * @author m01
  */
+
 @WebServlet("/registro")
+@MultipartConfig
+
 public class ControlRegistroUsuario extends HttpServlet{
     
     @Override
@@ -46,6 +54,9 @@ public class ControlRegistroUsuario extends HttpServlet{
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        Part imagenDeUsuario = req.getPart("imagenperfil-registro");
+        String nombreArchivo = "notuser.png";//Nombre del archivo por defecto que no tiene imagen
+        
         String nombreCompletoUsuario = req.getParameter("nombre-registro");
         String apellidoCompletoUsuario = req.getParameter("apellido-registro");
         String correoRegistro = req.getParameter("correo-registronuevo");
@@ -56,12 +67,32 @@ public class ControlRegistroUsuario extends HttpServlet{
         String municipioUsuario = req.getParameter("municipio-registro");
         String passworUsusario = req.getParameter("password-registronuevo");
         String passworConfirmadoUsusario = req.getParameter("passwordconfirmar-registronuevo");
+        System.out.println(req.getContextPath());
+        /*
+            tengo que hacer desde cero el metodo de obtener el nombre del archivo
+        
+        */
+        if(imagenDeUsuario != null){
+            nombreArchivo = getSubmittedFileName(imagenDeUsuario); //Nombre del archivo
+            File rutaProyecto = new File(".");
+            String path = req.getContextPath() + "/vista/images/users";//Ruta de todas la imagenes
+            System.out.println(req.getContextPath());
+            File carpetaDestino = new File(path);
+            File file = File.createTempFile(req.getSession().getId(), nombreArchivo, carpetaDestino);
+            try(InputStream input = imagenDeUsuario.getInputStream()){
+                Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        
+        //Mandamos la data del usuario para que pueda ser procesada por el query
         Usuario nuevoUsuario = new Usuario(
                 nombreCompletoUsuario,
                 apellidoCompletoUsuario,
                 nombreDeUsuarioRegistro,
                 correoRegistro,
-                "dasd",
+                nombreArchivo,
                 tipoDeUsuarioRegistro,
                 passworUsusario,
                 estadoUsusario,
@@ -75,8 +106,9 @@ public class ControlRegistroUsuario extends HttpServlet{
             if(nuevoUsuario.crearUsuarios()){
                 System.out.println("Creado con exito");
                         
-                RequestDispatcher requestDispatcher = req.getRequestDispatcher("vista/sesion/login.jsp");
-                requestDispatcher.forward(req, res);
+                res.sendRedirect(req.getContextPath() + "/login");
+                /*RequestDispatcher requestDispatcher = req.getRequestDispatcher("vista/sesion/login.jsp");
+                requestDispatcher.forward(req, res);*/
             }else{
                 System.out.println("no Creado con exito");
             }
@@ -91,5 +123,15 @@ public class ControlRegistroUsuario extends HttpServlet{
                 +  estadoUsusario + "\n" + calleUsuario + "\n" + municipioUsuario + "\n"
                 + passworUsusario + "\n" + passworConfirmadoUsusario);*/
     }
+    //Se tuvo que hacer manual la obtencion del nombre del archivo
+    private static String getSubmittedFileName(Part part) {
+        for (String cd : part.getHeader("content-disposition").split(";")) {
+            if (cd.trim().startsWith("filename")) {
+                String fileName = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+                return fileName.substring(fileName.lastIndexOf('/') + 1).substring(fileName.lastIndexOf('\\') + 1); // MSIE fix.
+            }
+        }
+        return null;
+}
     
 }

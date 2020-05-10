@@ -1,10 +1,10 @@
 <%-- 
     Document   : login
     Created on : 17/04/2020, 02:09:41 PM
-    Author     : m01
+    Author     : Javier GMO
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!--
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,7 +15,7 @@
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="../css/style.css">
     </head>
-    <body>
+    <body>-->
         <%@include file="../includes/nav.jsp" %><!--Include del navbar-->
         <div class="d-flex justify-content-center m-5">
             <form method="post" action="${pageContext.request.contextPath}/login" class="mb-5">
@@ -24,8 +24,8 @@
                   <input type="email" class="form-control" id="correo-login" name="correo-login" aria-describedby="emailHelp" placeholder="Correo">
                 </div>
                 <div class="form-group mt-4 mb-4">
-                  <label for="password-login">ContraseÃ±a</label>
-                  <input type="password" class="form-control" id="password-login" name="password-login" placeholder="ContraseÃ±a">
+                  <label for="password-login">Contraseña</label>
+                  <input type="password" class="form-control" id="password-login" name="password-login" placeholder="Contraseña">
                 </div>
                 <button type="submit" class="btn btn-primary mt-3 mb-3 form-control">Iniciar sesion</button>
             </form>

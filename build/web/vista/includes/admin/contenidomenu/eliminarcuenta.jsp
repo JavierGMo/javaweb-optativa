@@ -1,7 +1,7 @@
 <div class="">
     <div class="text-center">
         <p><span>Al eliminar la cuenta no podra recuperarla nunca mas.</span></p>
-        <a href="#" id="btn-eliminar-cuenta" class="btn btn-danger" >Eliminar</a>
+        <button id="btn-eliminar-cuenta" class="btn btn-danger" >Eliminar</button>
     </div>
     <div id="despues-de-btn-eliminar" class="ocultar">
         <form method="post" action="servlet-cambio-contrasenia" class="">

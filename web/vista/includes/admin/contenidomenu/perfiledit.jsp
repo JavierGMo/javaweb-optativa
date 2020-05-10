@@ -1,10 +1,18 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
 <div class="">
     <div class="text-center mt-3 mb-4">
-        <img src="/HolaChido/vista/images/users/notuser.png" alt="imagen user" class="perfil-imagen-panel rounded-circle"/>
+        <% 
+            Map<String, String> dataUsuario = (Map<String, String>) session.getAttribute("usuario");
+            /*out.print(((Object)session.getAttribute("usuario")).getClass().getSimpleName());
+            out.print(dataUsuario);*/
+        %>
+        <img src="${pageContext.request.contextPath}/vista/images/users/<% dataUsuario.get("refimagenperfil"); %>" alt="imagen user" class="perfil-imagen-panel rounded-circle"/>
         <div class="mt-5">
-            <p><span id="nombre-usuario"><% out.print("Hola"); %></span></p>
-            <p><span id="apellidos-usuario">Apellido usuario</span></p>
-            <p><span id="calle-usuario">Calle del usuario usuario</span></p>
+            
+            <p><span id="nombre-usuario">Nombre completo: <% out.print(dataUsuario.get("nombre")); %></span></p>
+            <p><span id="apellidos-usuario">Apellido: <% out.print(dataUsuario.get("apellido")); %></span></p>
+            <p><span id="calle-usuario">Nombre de usuario: <% out.print(dataUsuario.get("nombreusuario")); %></span></p>
         </div><!--Descripcion del usuario-->
     </div><!--Informacion del usuario-->
     <div class="text-center mt-5">

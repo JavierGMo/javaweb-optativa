@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!--
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,7 +9,7 @@
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="../css/style.css">
     </head>
-    <body>
+    <body>-->
         <%@include file="../includes/nav.jsp" %><!--Include del navbar-->
         <div class="d-flex flex-column mt-3">
             <div class="d-flex flex-row ml-5">
@@ -51,7 +51,7 @@
                       </form>
                     </div><!--Form de la pregunta-->
                     <div>
-                        <p><span class="" id="">Â¿Es nuevo?</span></p>
+                        <p><span class="" id="">¿Es nuevo?</span></p>
                         <p><span class="" >Si, es nuevo</span></p>
                     </div><!--Las preguntas y sus respuestas-->
                 </div><!--Preguntas y respuestas-->
