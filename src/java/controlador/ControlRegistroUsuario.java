@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -71,19 +72,23 @@ public class ControlRegistroUsuario extends HttpServlet{
         /*
             tengo que hacer desde cero el metodo de obtener el nombre del archivo
         
-        */
+        */        
+        
         if(imagenDeUsuario != null){
             nombreArchivo = getSubmittedFileName(imagenDeUsuario); //Nombre del archivo
-            File rutaProyecto = new File(".");
-            String path = req.getContextPath() + "/vista/images/users";//Ruta de todas la imagenes
-            System.out.println(req.getContextPath());
+            
+            String path = "/archivos/";//Ruta de todas la imagenes
+            //System.out.println(req.getContextPath());
             File carpetaDestino = new File(path);
+            carpetaDestino.mkdirs();
             File file = File.createTempFile(req.getSession().getId(), nombreArchivo, carpetaDestino);
             try(InputStream input = imagenDeUsuario.getInputStream()){
                 Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
             }catch(Exception e){
                 e.printStackTrace();
             }
+            nombreArchivo = file.getPath();
+            System.out.println(nombreArchivo);
         }
         
         //Mandamos la data del usuario para que pueda ser procesada por el query

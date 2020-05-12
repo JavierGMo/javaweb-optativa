@@ -231,7 +231,7 @@ public class Usuario {
         preparedStatement.setString(2, this.apellidos);
         preparedStatement.setString(3, this.nombreUsuario);
         preparedStatement.setString(4, this.correo);
-        preparedStatement.setString(5, "ref/");
+        preparedStatement.setString(5, this.refImagen);
         preparedStatement.setString(6, this.tipo);
         preparedStatement.setString(7, this.contrasenia);
         preparedStatement.setInt(8, 0);

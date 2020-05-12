@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import java.io.File;
 import java.io.IOException;
 
 import java.util.Map;
@@ -29,6 +30,7 @@ public class ControlLogin extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         //if(req.getSession().getAttribute("sesioniniciada") != null && req.getSession().getAttribute("usuario") != null) res.sendRedirect(req.getContextPath()+ "/");
         req.setAttribute("titulo", "Iniciar sesion");
+            
         
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("vista/sesion/login.jsp");
         requestDispatcher.forward(req, res);
