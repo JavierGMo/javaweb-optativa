@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -62,39 +64,36 @@ public class Calle {
     public void setIdPkMunicipio(int idPkMunicipio) {
         this.idPkMunicipio = idPkMunicipio;
     }
-    public void queryNombreCalles(){
-        
-    }
-    
-    public void queryCalleEspecifica(int idDeCalle){
-        LinkedList<String[]> usuario = new LinkedList<>();
-        Map<String, String> dataUsuario = null;
-        int i = 0;
+    public JSONArray queryTodasLasCalles(){
+        JSONArray arrayJSONCalles = null;
+        JSONObject jsonCalles = null;
+        JSONObject jsonTodasLasCalles = null;
         try
         {
             Conexion conexion = new Conexion();
-            PreparedStatement preparedStatement = conexion.conectar().prepareStatement("SELECT * FROM usuario WHERE CORREO=? AND CONTRASENIA = ?");
-            //preparedStatement.setString(1, correo);
-            //preparedStatement.setString(2, password);
+            PreparedStatement preparedStatement = conexion.conectar().prepareStatement("SELECT * FROM calle");
+            
             ResultSet resultado = preparedStatement.executeQuery();
-            if(resultado != null && resultado.first()){
-                dataUsuario = new HashMap<String, String>();
-                System.out.println("NO esta vacio de modelo");
-
-                dataUsuario.put("nombre", resultado.getString("NOMBRE"));
-                dataUsuario.put("apellido", resultado.getString("APELLIDO"));
-                dataUsuario.put("nombreusuario", resultado.getString("NOMBREUSUARIO"));
-                dataUsuario.put("correo", resultado.getString("CORREO"));
-                dataUsuario.put("refimagenperfil", resultado.getString("REFIMAGENPERFIL"));
-                dataUsuario.put("tipo", resultado.getString("TIPO"));
-                dataUsuario.put("password", resultado.getString("CONTRASENIA"));
+            if(resultado != null){
+                arrayJSONCalles = new JSONArray();
+                //System.out.println("NO esta vacio de modelo");
                 
-                /*
+                jsonTodasLasCalles = new JSONObject();
                 while (resultado.next()){
-                    System.out.println(resultado.getString(i));
-                    usuario.add(resultado.getString(i));
+                    jsonCalles = new JSONObject();
+                    jsonCalles.put("idcalle", resultado.getString("IDCALLE"));
+                    jsonCalles.put("nombrecalle", resultado.getString("NOMBRECALLE"));
+                    jsonCalles.put("idpkestado", resultado.getString("ESTADO_IDESTADO"));
+                    jsonCalles.put("idpkmunicipio", resultado.getString("MUNICIPIO_IDMUNICIPIO"));
+                    
+                    arrayJSONCalles.put(jsonCalles);
+                    jsonCalles = null;
+                    /**
+                    jsonTodasLasCalles.put("calle" + i, jsonCalles);
+                    jsonCalles = null;
                     ++i;
-                }*/
+                    * */
+                }                
             }
             
               
@@ -106,7 +105,40 @@ public class Calle {
            {
               e.printStackTrace();
            }
-           //return dataUsuario;
+        return arrayJSONCalles;
+        //return jsonTodasLasCalles;
+        
+    }
+    
+    public Map<String, String> queryCalleEspecifica(int idDeCalle){
+        Map<String, String> dataCalle = null;
+
+        try
+        {
+            Conexion conexion = new Conexion();
+            PreparedStatement preparedStatement = conexion.conectar().prepareStatement("SELECT * FROM calle WHERE IDCALLE=?");
+            preparedStatement.setInt(1, idDeCalle);
+            ResultSet resultado = preparedStatement.executeQuery();
+            if(resultado != null && resultado.first()){
+                dataCalle = new HashMap<String, String>();
+                System.out.println("NO esta vacio de modelo");
+                
+                dataCalle.put("idcalle", resultado.getString("IDCALLE"));
+                dataCalle.put("nombrecalle", resultado.getString("NOMBRECALLE"));
+                dataCalle.put("nombreusuario", resultado.getString("ESTADO_IDESTADO"));
+                dataCalle.put("correo", resultado.getString("MUNICIPIO_IDMUNICIPIO"));
+            }
+            
+              
+              resultado.close();
+              preparedStatement.close();
+              conexion.conectar().close();
+           }
+           catch (SQLException e)
+           {
+              e.printStackTrace();
+           }
+           return dataCalle;
         
     }
     

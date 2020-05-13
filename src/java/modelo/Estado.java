@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -45,19 +47,40 @@ public class Estado {
         this.idNombre = idNombre;
     }
     
-    public void queryEstados(){
+    public JSONArray queryEstados(){
+        Map<String, String> todosLosEstados = null;
+        JSONArray arrayJSONEstados = null;
+        JSONObject jsonEstados = null;
+        
         try{
             Conexion conexion = new Conexion();
-            
+            PreparedStatement preparedStatement = conexion.conectar().prepareStatement("SELECT * FROM estado");
+            ResultSet resultado = preparedStatement.executeQuery();
+            if(resultado != null){
+                arrayJSONEstados = new JSONArray();
+                //System.out.println("NO esta vacio de modelo");
+                
+                todosLosEstados = new HashMap<String, String>();
+                while(resultado.next()){
+                    jsonEstados = new JSONObject();
+                    jsonEstados.put("idestado", resultado.getString("IDESTADO"));
+                    jsonEstados.put("nombreestado", resultado.getString("NOMBRE"));                
+                    arrayJSONEstados.put(jsonEstados);
+                    jsonEstados = null;
+                }
+            }
+            resultado.close();
+            preparedStatement.close();
+            conexion.conectar().close();
         }catch(Exception e){
             e.printStackTrace();
         }
+        return arrayJSONEstados;
+        //return todosLosEstados;
         
     }
-    public void queryEstadoEspecifico(int idDelEstado){
-        LinkedList<String[]> usuario = new LinkedList<>();
-        Map<String, String> dataUsuario = null;
-        int i = 0;
+    public Map<String, String> queryEstadoEspecifico(int idDelEstado){
+        Map<String, String> dataEstados = null;
         try
         {
             Conexion conexion = new Conexion();
@@ -65,23 +88,11 @@ public class Estado {
             preparedStatement.setInt(1, idDelEstado);
             ResultSet resultado = preparedStatement.executeQuery();
             if(resultado != null && resultado.first()){
-                dataUsuario = new HashMap<String, String>();
+                dataEstados = new HashMap<String, String>();
                 System.out.println("NO esta vacio de modelo");
 
-                dataUsuario.put("nombre", resultado.getString("NOMBRE"));
-                dataUsuario.put("apellido", resultado.getString("APELLIDO"));
-                dataUsuario.put("nombreusuario", resultado.getString("NOMBREUSUARIO"));
-                dataUsuario.put("correo", resultado.getString("CORREO"));
-                dataUsuario.put("refimagenperfil", resultado.getString("REFIMAGENPERFIL"));
-                dataUsuario.put("tipo", resultado.getString("TIPO"));
-                dataUsuario.put("password", resultado.getString("CONTRASENIA"));
-                
-                /*
-                while (resultado.next()){
-                    System.out.println(resultado.getString(i));
-                    usuario.add(resultado.getString(i));
-                    ++i;
-                }*/
+                dataEstados.put("idestado", resultado.getString("IDESTADO"));
+                dataEstados.put("nombreestado", resultado.getString("NOMBRE"));                
             }
             
               
@@ -93,7 +104,7 @@ public class Estado {
            {
               e.printStackTrace();
            }
-           //return dataUsuario;
+           return dataEstados;
     }
     
 }

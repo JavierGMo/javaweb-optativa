@@ -33,13 +33,13 @@ import java.util.Map;
  * @author m01
  */
 public class Usuario {
-    private String id, nombre, apellidos, nombreUsuario, correo, refImagen, tipo, contrasenia, calle, municipio, estado;
-    private int productosVendidos, productosComprados;
+    private String id, nombre, apellidos, nombreUsuario, correo, refImagen, tipo, contrasenia;
+    private int calle, municipio, estado, productosVendidos, productosComprados;
     
     public Usuario(){
         
     }
-    public Usuario(String nombre, String apellidos, String nombreUsuario, String correo, String refImagen, String tipo, String contrasenia, String calle, String municipio, String estado, int productosVendidos, int productosComprados) {
+    public Usuario(String nombre, String apellidos, String nombreUsuario, String correo, String refImagen, String tipo, String contrasenia, int calle, int municipio, int estado, int productosVendidos, int productosComprados) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.nombreUsuario = nombreUsuario;
@@ -115,29 +115,31 @@ public class Usuario {
         this.contrasenia = contrasenia;
     }
 
-    public String getCalle() {
+    public int getCalle() {
         return calle;
     }
 
-    public void setCalle(String calle) {
+    public void setCalle(int calle) {
         this.calle = calle;
     }
 
-    public String getMunicipio() {
+    public int getMunicipio() {
         return municipio;
     }
 
-    public void setMunicipio(String municipio) {
+    public void setMunicipio(int municipio) {
         this.municipio = municipio;
     }
 
-    public String getEstado() {
+    public int getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(int estado) {
         this.estado = estado;
     }
+
+    
 
     public int getProductosVendidos() {
         return productosVendidos;
@@ -182,7 +184,7 @@ public class Usuario {
            //return listaContactos;   
     }
     public Map<String, String> traerUsuario(String correo, String password){
-        LinkedList<String[]> usuario = new LinkedList<>();
+        
         Map<String, String> dataUsuario = null;
         int i = 0;
         try
@@ -235,9 +237,9 @@ public class Usuario {
         preparedStatement.setString(6, this.tipo);
         preparedStatement.setString(7, this.contrasenia);
         preparedStatement.setInt(8, 0);
-        preparedStatement.setInt(9, 1);
-        preparedStatement.setInt(10, 1);
-        preparedStatement.setInt(11, 3);
+        preparedStatement.setInt(9, this.calle);
+        preparedStatement.setInt(10, this.municipio);
+        preparedStatement.setInt(11, this.estado);
         if(preparedStatement.executeUpdate() == 1){
             consultaCreada = true; 
         }

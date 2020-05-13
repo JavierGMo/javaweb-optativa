@@ -65,17 +65,23 @@
                     </div>
                 </div><!--tipo de usuario-->
                 <div class="form-group">
-                  <label for="estadovivir-registro">Estado</label>
-                  <input type="text" class="form-control" id="estadovivir-registro" name="estadovivir-registro" placeholder="Estado">
-                </div><!--estado-->
+                    <label for="inputState">Estado</label>
+                    <select name="estadovivir-registro" id="selectestados" class="form-control">
+                        <option value="0" selected>...</option>
+                    </select>
+                </div><!--Estado select-->
                 <div class="form-group">
-                  <label for="calle-registro">Calle</label>
-                  <input type="text" class="form-control" id="calle-registro" name="calle-registro" placeholder="Calle">
-                </div><!--calle-->
+                    <label for="inputState">Municipio</label>
+                    <select name="municipio-registro" id="selectmunicipios" class="form-control">
+                        <option value="0" selected>...</option>
+                    </select>
+                </div><!--Municipio select-->
                 <div class="form-group">
-                  <label for="municipio-registro">Municipio</label>
-                  <input type="text" class="form-control" id="municipio-registro" name="municipio-registro" placeholder="Municipio">
-                </div><!--municipio-->
+                    <label name="calle-registro" for="inputState">Calle</label>
+                    <select id="selectcalles" class="form-control">
+                        <option value="0" selected>...</option>
+                    </select>
+                </div><!--Calle select-->
                 <div class="form-group">
                   <label for="password-registronuevo">Contraseña</label>
                   <input type="password" class="form-control" id="password-registronuevo" name="password-registronuevo" placeholder="Contraseña">
@@ -92,5 +98,7 @@
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="${pageContext.request.contextPath}/vista/js/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/vista/js/ajaxregistro.js"></script>
     </body>
 </html>

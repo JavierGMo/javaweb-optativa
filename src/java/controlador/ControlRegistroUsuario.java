@@ -8,9 +8,11 @@ package controlador;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +24,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import modelo.Calle;
 import modelo.Usuario;
+import org.json.JSONObject;
 
 /**
  *
@@ -36,20 +40,15 @@ public class ControlRegistroUsuario extends HttpServlet{
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-        /*if(req.getSession().getAttribute("usuario") != null ){
-            Map<String, String> usuarioAdmin =  (Map<String, String>) req.getSession().getAttribute("usuario");
-            if(!usuarioAdmin.get("tipo").equals("admin")){
-                res.sendRedirect(req.getContextPath()+ "/");
-            }
-        if(req.getSession().getAttribute("sesioniniciada") != null && req.getSession().getAttribute("usuario") != null) res.sendRedirect(req.getContextPath()+ "/");
-        }*/
-        //Direccion default
         
+        //Direccion default
+        res.setContentType("application/json;charset=utf-8");
         req.setAttribute("titulo", "Registro");
         
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("vista/sesion/signup.jsp");
         requestDispatcher.forward(req, res);
-        if(req.getSession().getAttribute("sesioniniciada") != null && req.getSession().getAttribute("usuario") != null) res.sendRedirect(req.getContextPath()+ "/");
+        //if(req.getSession().getAttribute("sesioniniciada") != null && req.getSession().getAttribute("usuario") != null) res.sendRedirect(req.getContextPath()+ "/");
+        
         
     }
     
@@ -63,12 +62,16 @@ public class ControlRegistroUsuario extends HttpServlet{
         String correoRegistro = req.getParameter("correo-registronuevo");
         String tipoDeUsuarioRegistro = req.getParameter("tipousuario-registro");
         String nombreDeUsuarioRegistro = req.getParameter("nombreusuario-registro");
-        String estadoUsusario = req.getParameter("estadovivir-registro");
-        String calleUsuario = req.getParameter("calle-registro");
-        String municipioUsuario = req.getParameter("municipio-registro");
+        int estadoUsusario = req.getParameter("estadovivir-registro")!= null ?Integer.parseInt(req.getParameter("estadovivir-registro")):1;
+        int calleUsuario = req.getParameter("calle-registro")!=null?Integer.parseInt(req.getParameter("calle-registro")):1;
+        int municipioUsuario = req.getParameter("municipio-registro")!=null?Integer.parseInt(req.getParameter("municipio-registro")):1;
         String passworUsusario = req.getParameter("password-registronuevo");
         String passworConfirmadoUsusario = req.getParameter("passwordconfirmar-registronuevo");
-        System.out.println(req.getContextPath());
+        System.out.println();
+        System.out.println(estadoUsusario);
+        System.out.println();
+        System.out.println(calleUsuario);
+        System.out.println(municipioUsuario);
         /*
             tengo que hacer desde cero el metodo de obtener el nombre del archivo
         
@@ -81,7 +84,8 @@ public class ControlRegistroUsuario extends HttpServlet{
             //System.out.println(req.getContextPath());
             File carpetaDestino = new File(path);
             carpetaDestino.mkdirs();
-            File file = File.createTempFile(req.getSession().getId(), nombreArchivo, carpetaDestino);
+            //File file = File.createTempFile(System.currentTimeMillis()+"", nombreArchivo, carpetaDestino);
+            File file = File.createTempFile(Calendar.SECOND + "" +Calendar.YEAR+ "" + Calendar.MINUTE, nombreArchivo, carpetaDestino);
             try(InputStream input = imagenDeUsuario.getInputStream()){
                 Files.copy(input, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
             }catch(Exception e){
@@ -100,11 +104,11 @@ public class ControlRegistroUsuario extends HttpServlet{
                 nombreArchivo,
                 tipoDeUsuarioRegistro,
                 passworUsusario,
-                estadoUsusario,
                 calleUsuario,
                 municipioUsuario,
-                1,
-                1
+                estadoUsusario,
+                0,
+                0
         );
         
         try {
