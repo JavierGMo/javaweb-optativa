@@ -4,6 +4,10 @@
     Author     : Javier GMO
 --%>
 
+<%@page import="org.json.JSONObject"%>
+<%@page import="org.json.JSONArray"%>
+<%@page import="modelo.Producto"%>
+<%@page import="java.io.File"%>
 <!--
 <!DOCTYPE html>
 <html>
@@ -22,34 +26,29 @@
             </div>
         </div><!--Anuncios de productos-->
         <div class="mt-5 mb-5">
-            <div class="d-flex justify-content-around">
+            <%
+                Producto productos = new Producto();
+                JSONArray arrayProductos = productos.leerProductosRandom();
+                //out.print(ruta.getAbsolutePath());
+                //out.print(((JSONObject)arrayProductos.get(0)).getString("precio"));
+                //out.print(carpetaDestino.getAbsolutePath());
+                //out.print(carpetaDestino.getCanonicalPath());
+            %>
+            <div id="productos-del-index" class="d-flex justify-content-around">
+                <%
+                    for(int i = 0; i<arrayProductos.length(); i++){
+                %>
                 <div class="d-flex flex-column estilo-productos">
-                    <p><span class="titulo-productos">Producto 1</span></p>
-                    <img src="vista/images/productos/producto.jpg" class="size-prod" alt="prod">
-                    <p><span class="texto-descripcion text-wrap w-g">Vans negro hombre</span></p>
-                    <p><span class="remarcado-precio mb-5">$300</span></p>
+                    <p><span class="titulo-productos"><%out.print(((JSONObject)arrayProductos.get(i)).getString("nombreproducto"));%></span></p>
+                    
+                    <img src="<%out.print(((JSONObject)arrayProductos.get(i)).getString("refimagen"));%>" class="size-prod" alt="prod">
+                    <p><span class="texto-descripcion text-wrap w-g"><%out.print(((JSONObject)arrayProductos.get(i)).getString("descripcionproducto"));%></span></p>
+                    <p><span class="remarcado-precio mb-5">$<%out.print(((JSONObject)arrayProductos.get(i)).getString("precio"));%></span></p>
                     <div class="mt-5">
-                      <a class="btn btn-primary btn-padd" href="#">Ver</a>
+                        <a class="btn btn-primary btn-padd" href="${pageContext.request.contextPath}/compraproducto?idp=<%out.print(((JSONObject)arrayProductos.get(i)).getString("idproducto") +"&nombrep="+((JSONObject)arrayProductos.get(i)).getString("nombreproducto"));%>">Ver</a>
                     </div>
                 </div>
-                <div class="d-flex flex-column estilo-productos">
-                    <p><span class="titulo-productos">Producto 1</span></p>
-                    <img src="vista/images/productos/producto.jpg" class="size-prod" alt="prod">
-                    <p><span class="texto-descripcion text-wrap w-g">Vans negro hombre</span></p>
-                    <p><span class="remarcado-precio mb-5">$300</span></p>
-                    <div class="mt-5">
-                      <a class="btn btn-primary btn-padd" href="#">Ver</a>
-                    </div>
-                </div>
-                <div class="d-flex flex-column estilo-productos">
-                    <p><span class="titulo-productos">Producto 1</span></p>
-                    <img src="vista/images/productos/producto.jpg" class="size-prod" alt="prod">
-                    <p><span class="texto-descripcion text-wrap w-g">Vans negro hombre</span></p>
-                    <p><span class="remarcado-precio mb-5">$300</span></p>
-                    <div class="mt-5">
-                      <a class="btn btn-primary btn-padd" href="#">Ver</a>
-                    </div>
-                </div>
+                <%}%>
             </div>
         </div><!--Produtos de una misma categoria-->
         <div class="mt-5">

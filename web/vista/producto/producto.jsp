@@ -1,32 +1,31 @@
-<!--
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>{Nombre del producto}</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <link rel="stylesheet" href="../css/style.css">
-    </head>
-    <body>-->
+<%@page import="org.json.JSONObject"%>
+<%@page import="modelo.Producto"%>
+
         <%@include file="../includes/nav.jsp" %><!--Include del navbar-->
+        <%
+            Producto producto = new Producto();
+            JSONObject productoEspecificoJSON = producto.productoEspecifico(pageContext.getRequest().getParameter("idp"));
+            out.print(productoEspecificoJSON);
+        %>
         <div class="d-flex flex-column mt-3">
             <div class="d-flex flex-row ml-5">
                 <div class="w-75">
                     <div class="text-center mt-3">
-                        <img src="../images/ticket.png" id="imagendelproducto-compra" class="img-fluid w-50 h-50">
+                        <img src="<%out.print(productoEspecificoJSON.getString("refimagen"));%>" id="imagendelproducto-compra" class="img-fluid w-50 h-50" alt="<%out.print(productoEspecificoJSON.getString("nombreproducto"));%>">
                         <div class="text-justify mt-5 w-75">
-                            <p><span class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac eleifend neque. Pellentesque a libero in leo tincidunt dignissim. Praesent egestas purus eu sem volutpat, pulvinar varius tortor tristique. Pellentesque iaculis ex vitae metus commodo molestie sit amet ac tortor. Phasellus lacinia semper ipsum, sit amet porta diam dapibus ac. Curabitur fermentum tempus eros non ornare. Donec nulla lacus, aliquam dictum dui vitae, rhoncus viverra nibh. Integer eu leo blandit, posuere massa ac, malesuada tortor. Mauris sed elit rhoncus, lobortis risus rutrum, euismod elit. Mauris lobortis finibus lobortis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Integer gravida id metus vel congue. Sed eget erat non nulla rhoncus laoreet vitae a massa.                            Aliquam maximus condimentum tellus, at suscipit neque feugiat eget. Vestibulum velit dolor, vulputate at auctor et, laoreet vitae turpis. Pellentesque et massa aliquam, porttitor quam eu, mollis ipsum. Nam eu diam blandit, finibus magna vitae, ornare ex. Praesent feugiat sapien augue, ut tincidunt metus mattis id. Suspendisse lectus turpis, rhoncus id aliquam eleifend, viverra quis sapien. Quisque sed lorem pulvinar, laoreet ligula et, finibus diam. Etiam iaculis ex bibendum blandit gravida. Sed tincidunt, turpis at consequat pellentesque, nunc ante scelerisque elit, vitae placerat urna sapien quis turpis. Nam semper arcu libero, id tincidunt ligula molestie ut. Nullam varius justo eget ligula dignissim dictum.</span></p>
+                            <p class="h4">Descripcion:</p>
+                            <p><span class="h3 text-justify"><%out.print(productoEspecificoJSON.getString("descripcionproducto"));%></span></p>
                         </div>
                     </div><!--Imagen del producto y descripcion-->
                 </div><!--Imagen y descripcion-->
                 <div class="">
                     <div>
-                        <p>Nombre del producto</p>
+                        <p class="h3">Producto:</p>
+                        <p class="h5"><%out.print(productoEspecificoJSON.getString("nombreproducto"));%></p>
                     </div><!--nombre del producto-->
                     <div>
-                        <p>$1k</p>
+                        <p class="h4">Precio:</p>
+                        <p>$<%out.print(productoEspecificoJSON.getString("precio"));%></p>
                     </div><!--Precio del producto-->
                     <a class="btn btn-primary pt-2 pb-2 pl-5 pr-5 btn-personal">Comprar</a>
                 </div><!--Contenedor de unidades disponibles y compra de unidades-->

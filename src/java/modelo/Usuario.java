@@ -205,13 +205,6 @@ public class Usuario {
                 dataUsuario.put("refimagenperfil", resultado.getString("REFIMAGENPERFIL"));
                 dataUsuario.put("tipo", resultado.getString("TIPO"));
                 dataUsuario.put("password", resultado.getString("CONTRASENIA"));
-                
-                /*
-                while (resultado.next()){
-                    System.out.println(resultado.getString(i));
-                    usuario.add(resultado.getString(i));
-                    ++i;
-                }*/
             }
             
               
