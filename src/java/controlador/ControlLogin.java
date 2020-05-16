@@ -5,9 +5,8 @@
  */
 package controlador;
 
-import java.io.File;
-import java.io.IOException;
 
+import java.io.IOException;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -52,7 +51,7 @@ public class ControlLogin extends HttpServlet{
                 sesionIniciada = true;
                 //Con esta variable si el usuario existe lo redirecciono al index sino se queda en el login
                 paginaRedireccion = "/";
-                //sesion.setMaxInactiveInterval(60*10);
+                sesion.setMaxInactiveInterval(60*1000);
                 sesion.setAttribute("usuario", resultadoUsuario);
             }
         }

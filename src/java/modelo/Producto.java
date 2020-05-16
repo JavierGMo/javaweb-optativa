@@ -106,6 +106,7 @@ public class Producto {
                     jsonProductos.put("idproducto", resultado.getString("ID"));
                     jsonProductos.put("nombreproducto", resultado.getString("NOMBREPRODUCTO"));
                     jsonProductos.put("descripcionproducto", resultado.getString("DESCRIPCION"));
+                    jsonProductos.put("numerodepiezas", resultado.getString("NUMERODEPIEZAS"));
                     jsonProductos.put("precio", resultado.getString("PRECIO"));
                     jsonProductos.put("refimagen", resultado.getString("REFIMAGENPRODUCTO"));
                     jsonProductos.put("idpkusuario", resultado.getString("USUARIO_IDUSUARIO"));
@@ -148,6 +149,7 @@ public class Producto {
                 productoJSON.put("idproducto", resultado.getString("ID"));
                 productoJSON.put("nombreproducto", resultado.getString("NOMBREPRODUCTO"));
                 productoJSON.put("descripcionproducto", resultado.getString("DESCRIPCION"));
+                productoJSON.put("numerodepiezas", resultado.getString("NUMERODEPIEZAS"));
                 productoJSON.put("precio", resultado.getString("PRECIO"));
                 productoJSON.put("refimagen", resultado.getString("REFIMAGENPRODUCTO"));
                 productoJSON.put("idpkusuario", resultado.getString("USUARIO_IDUSUARIO"));
@@ -177,6 +179,44 @@ public class Producto {
     }
     public void borrarProducto(){
         
+    }
+    public boolean compraProducto(String idUsuario, String idProducto, String cantidadDeProdcutosComprados, String cantidadDeProductoEnStock){
+        boolean compraCorrecta = false;
+        int idusuario = Integer.parseInt(idUsuario);
+        int idproducto = Integer.parseInt(idProducto);
+        int cantidadDeProductosInsert = Integer.parseInt(cantidadDeProdcutosComprados);
+        int cantidadDeProductosUpdate = Integer.parseInt(cantidadDeProductoEnStock);
+        try
+        {
+            Conexion conexion = new Conexion();
+            PreparedStatement preparedStatementProducto = conexion.conectar().prepareStatement("UPDATE producto SET NUMERODEPIEZAS=? WHERE ID=?");
+            PreparedStatement preparedStatementCompraDeProducto = conexion.conectar().prepareStatement("INSERT INTO `productocomprado` (`IDPRODUCTOCOMPRADO`, `PIEZASCOMPRADAS`, `USUARIO_ID`, `PRODUCTO_ID`) VALUES (NULL, ?, ?, ?)");
+            //Parametros para actualizar el producto
+            preparedStatementProducto.setInt(1, cantidadDeProductosUpdate);
+            preparedStatementProducto.setInt(2, idproducto);
+            //Parametros para insertar un productocomprado
+            preparedStatementCompraDeProducto.setInt(1, cantidadDeProductosInsert);
+            preparedStatementCompraDeProducto.setInt(2, idusuario);
+            preparedStatementCompraDeProducto.setInt(3, idproducto);
+            
+            
+            
+            compraCorrecta = (  preparedStatementProducto.executeUpdate() == 1 
+                                && preparedStatementCompraDeProducto.executeUpdate() == 1
+                            )?true:false;
+              
+            
+            preparedStatementProducto.close();
+            preparedStatementCompraDeProducto.close();
+            conexion.conectar().close();
+        }
+        catch (SQLException e)
+        {
+            compraCorrecta = false;
+            e.printStackTrace();
+        }
+        
+        return compraCorrecta;
     }
     
 }

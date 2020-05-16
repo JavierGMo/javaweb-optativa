@@ -190,14 +190,15 @@ public class Usuario {
         try
         {
             Conexion conexion = new Conexion();
-            PreparedStatement preparedStatement = conexion.conectar().prepareStatement("SELECT NOMBRE, APELLIDO, NOMBREUSUARIO, CORREO, REFIMAGENPERFIL, TIPO, CONTRASENIA FROM usuario WHERE CORREO=? AND CONTRASENIA = ?");
+            PreparedStatement preparedStatement = conexion.conectar().prepareStatement("SELECT * FROM usuario WHERE CORREO=? AND CONTRASENIA = ?");
             preparedStatement.setString(1, correo);
             preparedStatement.setString(2, password);
             ResultSet resultado = preparedStatement.executeQuery();
             if(resultado != null && resultado.first()){
                 dataUsuario = new HashMap<String, String>();
                 System.out.println("NO esta vacio de modelo");
-
+                
+                dataUsuario.put("idusuario", resultado.getString("ID"));
                 dataUsuario.put("nombre", resultado.getString("NOMBRE"));
                 dataUsuario.put("apellido", resultado.getString("APELLIDO"));
                 dataUsuario.put("nombreusuario", resultado.getString("NOMBREUSUARIO"));
@@ -205,6 +206,10 @@ public class Usuario {
                 dataUsuario.put("refimagenperfil", resultado.getString("REFIMAGENPERFIL"));
                 dataUsuario.put("tipo", resultado.getString("TIPO"));
                 dataUsuario.put("password", resultado.getString("CONTRASENIA"));
+                dataUsuario.put("totalproductosvendidos", resultado.getString("TOTALPRODUCTOSVENDIDOS"));
+                dataUsuario.put("idpkcalle", resultado.getString("CALLE_IDCALLE"));
+                dataUsuario.put("idpkmunicipio", resultado.getString("MUNICIPIO_IDMUNICIPIO"));
+                dataUsuario.put("idpkestado", resultado.getString("ESTADO_IDESTADO"));
             }
             
               
