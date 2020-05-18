@@ -18,20 +18,6 @@
     <body>-->
         <%@include file="../includes/nav.jsp" %><!--Include del navbar-->
         <div class="d-flex justify-content-center m-5">
-            <!--
-            nombre
-            apellido
-            nombreusuario
-            correo
-            refimagen
-            tipo
-            contrasenia
-            productos vendidos
-            productos comprados
-            calle
-            municipio
-            estado
-            -->
             <form method="post" action="${pageContext.request.contextPath}/registro" class="mb-5" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="imagenperfil-registro">Imagen de perfil</label>

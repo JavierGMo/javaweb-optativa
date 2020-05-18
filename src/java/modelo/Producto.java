@@ -218,5 +218,41 @@ public class Producto {
         
         return compraCorrecta;
     }
+    public JSONArray mostrarProductosComprados(int idUsuario){
+        JSONArray productosComprados = null;
+        JSONObject productoCompradoJSON = null;
+        try
+        {
+            Conexion conexion = new Conexion();
+            PreparedStatement preparedStatement = conexion.conectar().prepareStatement("SELECT * FROM productocomprado WHERE USUARIO_ID=?");
+            preparedStatement.setInt(1, idUsuario);
+            ResultSet resultado = preparedStatement.executeQuery();
+            if(resultado != null){
+                productosComprados = new JSONArray();
+                
+                while(resultado.next()){
+                    productoCompradoJSON = new JSONObject();
+                    productoCompradoJSON.put("idproductocomprado", resultado.getString("IDPRODUCTOCOMPRADO"));
+                    productoCompradoJSON.put("piezascompradas", resultado.getString("PIEZASCOMPRADAS"));
+                    productoCompradoJSON.put("idpkusuario", resultado.getString("USUARIO_ID"));
+                    productoCompradoJSON.put("idpkproducto", resultado.getString("PRODUCTO_ID"));
+                    productosComprados.put(productoCompradoJSON);
+                    productoCompradoJSON = null;
+                }
+            }
+            resultado.close();
+            preparedStatement.close();
+            conexion.conectar().close();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return productosComprados;
+    }
+    public JSONArray mostrarProductosVendidos(int idUsuario){
+        JSONArray productosVendidos = null;
+        return productosVendidos;
+    }
     
 }

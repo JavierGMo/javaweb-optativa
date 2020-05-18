@@ -109,7 +109,7 @@ i{
 
 /*Panel del usuario*/
 .perfil-imagen-panel{
-    width: 50%;
-    height: 50%;
+    width: 25%!important;
+    height: 25%!important;
     
 }

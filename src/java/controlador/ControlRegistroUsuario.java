@@ -52,7 +52,7 @@ public class ControlRegistroUsuario extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
         Part imagenDeUsuario = req.getPart("imagenperfil-registro");
-        String nombreArchivo = "notuser.png";//Nombre del archivo por defecto que no tiene imagen
+        String nombreArchivo = "\\archivos\\notuser.png";//Nombre del archivo por defecto que no tiene imagen
         
         String nombreCompletoUsuario = req.getParameter("nombre-registro");
         String apellidoCompletoUsuario = req.getParameter("apellido-registro");

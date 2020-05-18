@@ -28,6 +28,7 @@ public class ControlCompraProducto extends HttpServlet{
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
+        //Cambiar el set content type a json para mandar mejor la dara al ajax 
         String idUsuario = req.getParameter("idusuario");
         String idProducto = req.getParameter("idproducto");
         String piezasFinalesStock = req.getParameter("cantidadtotaldeproductos");

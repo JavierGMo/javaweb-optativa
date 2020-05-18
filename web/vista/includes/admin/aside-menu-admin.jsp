@@ -3,8 +3,8 @@
     <div>
         <ul class="list-group">
             <li class="list-group-item"><a href="#" id="opcion-perfil" >Perfil</a></li>
-            <li class="list-group-item"><a href="#" id="opcion-compras" >Compra</a></li>
-            <li class="list-group-item"><a href="#" id="opcion-ventas" >Venta</a></li>
+            <li class="list-group-item"><a href="#" id="opcion-compras" >Compras</a></li>
+            <li class="list-group-item"><a href="#" id="opcion-ventas" >Ventas</a></li>
             <% 
                 Map<String, String> dataUsuario = (Map<String, String>) session.getAttribute("usuario");
                 String rolUsuario = dataUsuario.get("tipo");

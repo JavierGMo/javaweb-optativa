@@ -6,11 +6,13 @@
         <%
             Producto producto = new Producto();
             String idProducto = pageContext.getRequest().getParameter("idp");
-            String idUsuario = ((Map<String, String>)session.getAttribute("usuario")).get("idusuario");
+            String idUsuario = session.getAttribute("usuario")!= null?((Map<String, String>)session.getAttribute("usuario")).get("idusuario"):"0";
             JSONObject productoEspecificoJSON = producto.productoEspecifico(idProducto);
-            if(idUsuario==null) idUsuario = "0";
+            /*
+            Hacer que en el json verifique el id del cliente, si es 0 decirle que debe iniciar sesion xd
+            */
             /*JSONObject productoEspecificoJSON = producto.productoEspecifico(pageContext.getRequest().getParameter("idp"));*/
-            out.print(productoEspecificoJSON);
+            /*out.print(productoEspecificoJSON);*/
         %>
         <div class="d-flex flex-column mt-3">
             <div class="d-flex flex-row ml-5">

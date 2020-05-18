@@ -8,6 +8,29 @@ function confirmar(){
                 console.log("Error type: " + e);
             }
 }
+function dataproductos(id,opcion){
+    let respuesta = "hola, no pude comunicarme con el servlet";
+    
+    $.ajax({
+        url: "controldeproductos",
+        data:{
+            idusuario:id,
+            opciondeproductos:opcion
+        },
+        async: false,
+        success: function (response) {
+            console.log("antes de asignar la variable: "+response);
+            respuesta = response;
+            console.log("despues de asginar la variable: "+respuesta);
+        },
+        error: function(e){
+            console.log(e);
+            respuesta = null;
+        }
+    });
+    console.log("antes del return: "+respuesta);
+    return respuesta;
+}
 $(function(){
         //AJAX para porder obtener y mostrar un contenido al usuario al entrar a su pagina
         $.ajax({
@@ -44,11 +67,48 @@ $(function(){
                         url: "vista/includes/admin/contenidomenu/compraadmin.jsp",
                         success: function (response) {
                                 $("#contenedor-de-opciones").html(response);
+                                //Despues de cargar el jsp para poder traer los id para mostrar las compras realizadas
+                                let dataapaginar = dataproductos($("#idusuarioparacompra").val(),"comprados");
+                                let contenidotabla = [];
+                                $.each(dataapaginar, function(index, item){
+                                    contenidotabla.push({
+                                        'id':item["idproducto"],
+                                        'nombre':item["nombreproducto"],
+                                        'precio': "$"+item["precio"]
+                                    });
+                                });
+                                console.log("anidados en el ajax: "+ dataapaginar);
+                                $('#tablachida').dataTable({
+                                                data: contenidotabla,
+                                                columns: [
+                                                    { data: 'id' },
+                                                    { data: 'nombre' },
+                                                    { data: 'precio' }
+                                                ]
+                                            });
+                                /*
+                                $('#cajadepaginacioncompras')
+                                    .pagination({
+                                        dataSource: dataapaginar,
+                                        callback: function(res, pagination){
+                                            let listaul = '<ul>';
+                                            $.each(res, function(index, item){
+                                                listaul += '<li>' + item["nombreproducto"] + '</li>';
+                                                console.log("Item: " + item["nombreproducto"]);
+                                            });
+                                            listaul += '</ul>';
+                                            $('#cajadepaginacioncompras').prev().html(listaul);
+                                        }
+                                
+                                    });*/
+                                //.html('<ul><li>Hola con ajax perras</li></ul>');
+                                //console.log(document.getElementById('cajadepaginacioncompras'));
                         },
                         error: function(e){
                                 console.log("Error"+e);
                         }
                 });
+                
 	});
 	//Pestaña para la opcion de ventas
 	$("#opcion-ventas").click(function (event) {
@@ -97,6 +157,8 @@ $(function(){
                     url: "vista/includes/admin/contenidomenu/eliminarcuenta.jsp",
                     success: function (response) {
                             $("#contenedor-de-opciones").html(response);
+                            //Despues de cargar el jsp donde esta el id de eliminar cuentta
+                            
                             document.getElementById("btn-eliminar-cuenta").onclick = function(){confirmar()};
                     },
                     error: function(e){
@@ -107,6 +169,7 @@ $(function(){
         
         //Boton despues de querer eliminar la cuenta
         console.log($("#btn-eliminar-cuenta"));
+        
         
         
 });
