@@ -11,7 +11,7 @@
                   <input type="password" class="form-control" id="confirmar-eliminarcuenta-pass" placeholder="Contraseña">
               </div>
             </div>
-            <button type="submit" class="btn btn-primary mb-2">Confirmar</button>
+            <button type="submit" id="btn-confirmar-eliminacion" class="btn btn-primary mb-2">Confirmar</button>
         </form>
     </div>
 </div>

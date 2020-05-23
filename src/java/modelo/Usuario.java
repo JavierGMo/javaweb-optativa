@@ -6,6 +6,7 @@
 package modelo;
 
 import conexion.Conexion;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -161,7 +162,8 @@ public class Usuario {
         try
         {
               Conexion conexion = new Conexion();
-              Statement st = conexion.conectar().createStatement();
+              Connection conn = conexion.conectar();
+              Statement st = conn.createStatement();
               ResultSet rs = st.executeQuery("select NOMBRE, APELLIDO, NOMBREUSUARIO, CORREO, REFIMAGENPERFIL, TIPO from usuario" );
               while (rs.next())
               {
@@ -175,7 +177,7 @@ public class Usuario {
               }
               rs.close();
               st.close();
-              conexion.conectar().close();
+              conn.close();
            }
            catch (Exception e)
            {
@@ -190,7 +192,8 @@ public class Usuario {
         try
         {
             Conexion conexion = new Conexion();
-            PreparedStatement preparedStatement = conexion.conectar().prepareStatement("SELECT * FROM usuario WHERE CORREO=? AND CONTRASENIA = ?");
+            Connection conn = conexion.conectar();
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM usuario WHERE CORREO=? AND CONTRASENIA = ?");
             preparedStatement.setString(1, correo);
             preparedStatement.setString(2, password);
             ResultSet resultado = preparedStatement.executeQuery();
@@ -215,7 +218,7 @@ public class Usuario {
               
               resultado.close();
               preparedStatement.close();
-              conexion.conectar().close();
+              conn.close();
            }
            catch (SQLException e)
            {
@@ -226,7 +229,8 @@ public class Usuario {
     public boolean crearUsuarios() throws SQLException{
         boolean consultaCreada = false;
         Conexion conexion = new Conexion();
-        PreparedStatement preparedStatement = conexion.conectar().prepareStatement("INSERT INTO `usuario`(`ID`, `NOMBRE`, `APELLIDO`, `NOMBREUSUARIO`, `CORREO`, `REFIMAGENPERFIL`, `TIPO`, `CONTRASENIA`, `TOTALPRODUCTOSVENDIDOS`, `CALLE_IDCALLE`, `MUNICIPIO_IDMUNICIPIO`, `ESTADO_IDESTADO`) VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        Connection conn = conexion.conectar();
+        PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO `usuario`(`ID`, `NOMBRE`, `APELLIDO`, `NOMBREUSUARIO`, `CORREO`, `REFIMAGENPERFIL`, `TIPO`, `CONTRASENIA`, `TOTALPRODUCTOSVENDIDOS`, `CALLE_IDCALLE`, `MUNICIPIO_IDMUNICIPIO`, `ESTADO_IDESTADO`) VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         preparedStatement.setString(1, this.nombre);
         preparedStatement.setString(2, this.apellidos);
         preparedStatement.setString(3, this.nombreUsuario);
@@ -241,7 +245,8 @@ public class Usuario {
         if(preparedStatement.executeUpdate() == 1){
             consultaCreada = true; 
         }
-        conexion.conectar().close();
+        preparedStatement.close();
+        conn.close();
         return consultaCreada;
         
     }
@@ -250,6 +255,34 @@ public class Usuario {
     }
     public void borrarUsuario(){
         
+    }
+    public boolean actualizarContrasenia(int idUser, String nuevaContrasenia) throws SQLException{
+        //UPDATE usuario SET NUMERODEPIEZAS=? WHERE ID=?
+        boolean ok = false;
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+        PreparedStatement preparedStatement = conn.prepareStatement("UPDATE usuario SET CONTRASENIA=? WHERE ID=?");
+        preparedStatement.setString(1, nuevaContrasenia);
+        preparedStatement.setInt(2, idUser);
+        if(preparedStatement.executeUpdate()==1){
+            ok = true;
+        }
+        preparedStatement.close();
+        conn.close();
+        return ok;
+    }
+    public boolean eliminarCuenta(int idUser, String password) throws SQLException{
+        boolean isOK = false;
+        Connection conexion = new Conexion().conectar();
+        PreparedStatement preparedStatement = conexion.prepareStatement("DELETE FROM usuario WHERE ID=? AND CONTRASENIA=?");
+        preparedStatement.setInt(1, idUser);
+        preparedStatement.setString(2, password);
+        if(preparedStatement.executeUpdate() == 1){
+            isOK = true;
+        }
+        preparedStatement.close();
+        conexion.close();
+        return isOK;
     }
     
 }

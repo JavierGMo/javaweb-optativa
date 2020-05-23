@@ -8,6 +8,15 @@ function confirmar(){
                 console.log("Error type: " + e);
             }
 }
+let verificarcampo = (aconfirmar)=>{
+    let ok = false;
+    if(aconfirmar!==null && aconfirmar!==undefined){
+        if(aconfirmar.val().trim()!==""){
+            ok = true;
+        }
+    }
+    return ok;
+};
 function dataproductos(id,opcion){
     let respuesta = "hola, no pude comunicarme con el servlet";
     
@@ -86,21 +95,6 @@ $(function(){
                                                     { data: 'precio' }
                                                 ]
                                             });
-                                /*
-                                $('#cajadepaginacioncompras')
-                                    .pagination({
-                                        dataSource: dataapaginar,
-                                        callback: function(res, pagination){
-                                            let listaul = '<ul>';
-                                            $.each(res, function(index, item){
-                                                listaul += '<li>' + item["nombreproducto"] + '</li>';
-                                                console.log("Item: " + item["nombreproducto"]);
-                                            });
-                                            listaul += '</ul>';
-                                            $('#cajadepaginacioncompras').prev().html(listaul);
-                                        }
-                                
-                                    });*/
                                 //.html('<ul><li>Hola con ajax perras</li></ul>');
                                 //console.log(document.getElementById('cajadepaginacioncompras'));
                         },
@@ -144,6 +138,56 @@ $(function(){
                         dataType: "html",
                         success: function (response) {
                                 $("#contenedor-de-opciones").html(response);
+                                $("#confirmar-cambio").click(function(event){
+                                    event.preventDefault();
+                                    let pass = $("#password");
+                                    let passconfirm = $("#passwordconfirm");
+                                    if(verificarcampo(pass) && verificarcampo(passconfirm)){
+                                        if(pass.val().trim().length===passconfirm.val().trim().length && pass.val().trim()===passconfirm.val().trim()){
+                                            pass.removeClass("is-invalid");
+                                            passconfirm.removeClass("is-invalid");
+                                            $.ajax({
+                                                type:'POST',
+                                                url: 'cambiopass',
+                                                data:{
+                                                    nuevacontrasenia: pass.val().trim()
+                                                },
+                                                success: function (response) {
+                                                    if(response["ok"]!==0){
+                                                        Swal.fire(
+                                                            'Exito',
+                                                            'Tu contraseña se ha actualizado',
+                                                            'success'
+                                                        );
+                                                    }else{
+                                                        Swal.fire(
+                                                            'Oops...',
+                                                            'Vaya, algo salio mal :/',
+                                                            'error'
+                                                        );
+                                                    }
+                                                },
+                                                error: function(e){
+                                                    Swal.fire(
+                                                        'Oops...',
+                                                        'Vaya, algo salio mal :/',
+                                                        'error'
+                                                    );
+                                                }
+                                            });
+                                        }else{
+                                            pass.addClass("is-invalid");
+                                            passconfirm.addClass("is-invalid");
+                                        }
+                                    }else{
+                                        //is-invalid
+                                        pass.addClass("is-invalid");
+                                        passconfirm.addClass("is-invalid");
+                                    }
+                                    pass.val("");
+                                    passconfirm.val("");
+                                });
+                                
                         },
                         error: function(e){
                                 console.log("Error"+e);
@@ -160,15 +204,51 @@ $(function(){
                             //Despues de cargar el jsp donde esta el id de eliminar cuentta
                             
                             document.getElementById("btn-eliminar-cuenta").onclick = function(){confirmar()};
+                            $("#btn-confirmar-eliminacion").click(function(event){
+                                event.preventDefault();
+                                let pass = $("#confirmar-eliminarcuenta-pass");
+                                if(verificarcampo(pass)){
+                                    if(pass.val().trim()!==""){
+                                        pass.removeClass("is-valid");
+                                        $.ajax({
+                                           type:'POST',
+                                           url:'eliminarcuenta',
+                                           data:{
+                                               password:$("#confirmar-eliminarcuenta-pass").val().trim()
+                                           },
+                                           success: function (response) {
+                                               if(response["ok"]===0){
+                                                   Swal.fire(
+                                                        'Vaya',
+                                                        'Algo salio mal :/',
+                                                        'error'
+                                                    );
+                                               }
+                                            },
+                                            error: function(e){
+                                                console.log("Error"+e);
+                                                Swal.fire(
+                                                    'Vaya',
+                                                    'Algo salio mal :/',
+                                                    'error'
+                                                );
+                                            }
+                                           
+                                        });
+                                    }else{
+                                        pass.addClass("is-invalid");
+                                    }
+                                }else{
+                                    pass.addClass("is-invalid");
+                                }
+                            });
                     },
                     error: function(e){
                             console.log("Error"+e);
                     }
             });
 	});
-        
-        //Boton despues de querer eliminar la cuenta
-        console.log($("#btn-eliminar-cuenta"));
+                
         
         
         
